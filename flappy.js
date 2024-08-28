@@ -178,3 +178,7 @@ jogo.start();
 document.getElementById('novoJogo').onclick = () => {
     jogo.restart();
 };
+
+
+
+
