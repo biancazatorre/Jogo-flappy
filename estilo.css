@@ -21,11 +21,7 @@ body {
 
 * {
     box-sizing: border-box;
-}
-
-@font-face {
-    font-family: 'Pixel';
-    src: url('../fonts/Pixel.ttf');
+    font-family:Verdana, Geneva, Tahoma, sans-serif  ;
 }
 
 
@@ -82,4 +78,21 @@ body {
     font-family: Pixel;
     font-size: 70px;
     z-index: 100;
+}
+
+#novoJogo {
+    margin-top: 20px;
+    margin-left: 10px;
+    padding: 10px 20px;
+    font-family: 'Pixel';
+    font-size: 24px;
+    background-color:rgb(231, 83, 108);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#novoJogo:hover {
+    background-color: rgb(200, 90, 6);
 }
