@@ -4,6 +4,15 @@ function novoElemento(tagName, className){
     return elem
 }
 
+function Progresso() {
+    this.elemento = novoElemento('span', 'progresso')
+
+    this.atualizarPontos = pontos => {
+        this.elemento.innerHTML = pontos
+    }
+    this.atualizarPontos(0)
+}
+
 function Barreira(reversa = false){
     this.elemento = novoElemento('div', 'barreira')
 
@@ -14,7 +23,6 @@ function Barreira(reversa = false){
     this.elemento.appendChild(reversa ? borda : corpo )
 
     this.setAltura = altura => corpo.style.height = `${altura}px`
-
 }
 
 function ParDeBarreiras(altura, abertura, x) {
@@ -82,7 +90,7 @@ function Passaro(alturaJogo) {
     window.onkeyup = e => voando = false
 
     this.animar = () => {
-        const novoY = this.getY() + (voando ? 8 : -5)
+        const novoY = this.getY() + (voando ? 6 : -4)
         const alturaMaxima = alturaJogo - this.elemento.clientHeight
 
         if (novoY <= 0) {
@@ -95,15 +103,6 @@ function Passaro(alturaJogo) {
     }
 
     this.setY(alturaJogo / 2)
-}
-
-function Progresso() {
-    this.elemento = novoElemento('span', 'progresso')
-
-    this.atualizarPontos = pontos => {
-        this.elemento.innerHTML = pontos
-    }
-    this.atualizarPontos(0)
 }
 
 function estaoSobrePostos(elementoA, elementoB) {
@@ -119,7 +118,7 @@ function estaoSobrePostos(elementoA, elementoB) {
 function colidiu(passaro, barreiras){
     let colidiu = false
 
-    barreiras.pares.forEach( parDeBarreiras => {
+    barreiras.pares.forEach(parDeBarreiras => {
         if(!colidiu) {
             const superior = parDeBarreiras.superior.elemento
             const inferior = parDeBarreiras.inferior.elemento
@@ -132,6 +131,8 @@ function colidiu(passaro, barreiras){
     return colidiu
 }
 
+let recorde = 0; // Variável para armazenar o recorde
+
 function FlappyBird() {
     let pontos = 0
 
@@ -141,7 +142,13 @@ function FlappyBird() {
 
     const progresso = new Progresso()
     const barreiras = new Barreiras(altura, largura, 200, 400, 
-        () => progresso.atualizarPontos(++pontos))
+        () => {
+            progresso.atualizarPontos(++pontos)
+            if (pontos > recorde) {
+                recorde = pontos
+                document.getElementById('recorde').innerText = `Recorde: ${recorde}`
+            }
+        })
 
     const passaro = new Passaro(altura)
 
@@ -154,14 +161,14 @@ function FlappyBird() {
     let temporizador;
 
     this.start = () => {
-        temporizador = setInterval( () =>{
+        temporizador = setInterval(() => {
             barreiras.animar()
             passaro.animar()
 
             if(colidiu(passaro, barreiras)) {
                 clearInterval(temporizador)
             }
-        }, 20 )
+        }, 20)
     }
 
     this.restart = () => {
@@ -178,7 +185,6 @@ jogo.start();
 document.getElementById('novoJogo').onclick = () => {
     jogo.restart();
 };
-
 
 
 

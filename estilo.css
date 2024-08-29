@@ -80,7 +80,7 @@ body {
     z-index: 100;
 }
 
-#novoJogo {
+#novoJogo, #recorde {
     margin-top: 20px;
     margin-left: 10px;
     padding: 10px 20px;
@@ -95,4 +95,9 @@ body {
 
 #novoJogo:hover {
     background-color: rgb(200, 90, 6);
+}
+
+#placar{
+    display: flex;
+    margin-bottom: 10px;
 }
